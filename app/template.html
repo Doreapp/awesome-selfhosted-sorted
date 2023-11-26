@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Awesome selfhosted sorted by stars</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+    <main>
+        {% for tag, softwares in softwares %}
+        <section class='software-tag'>
+            <h2>{{tag}}</h2>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Stars</th>
+                        <th>Website</th>
+                        <th>Description</th>
+                        <th>Source code<htd>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for software in softwares %}
+                    <tr>
+                        <td class="to-right">
+                            {{loop.index + 1}}
+                        </td>
+                        <td class="to-right">
+                            {{software.stargazers_count or '??'}}
+                        </td>
+                        <td class="to-center">
+                            <a href="{{software.website_url}}">
+                                {{software.name}}
+                            </a>
+                        </td>
+                        <td>{{software.description}}</td>
+                        <td class="to-center">
+                            {% if software.source_code_url %}
+                            <a href="{{software.source_code_url}}">
+                                Source code
+                            </a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+        {% endfor %}
+    </main>
+    <script src="main.js"></script>
+</body>
+
+</html>
