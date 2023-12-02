@@ -55,7 +55,6 @@ def generate(**data):
     )
     template = env.get_template("template.html")
     result = template.render(**data)
-    os.makedirs("output", exist_ok=True)
     with open(
         os.path.join(BASE_DIR, "..", "web", "index.html"), "w", encoding="utf-8"
     ) as fos:

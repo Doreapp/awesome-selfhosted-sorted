@@ -8,6 +8,7 @@
     <title>Awesome selfhosted sorted by stars</title>
     <link rel="stylesheet" href="./style.css">
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
+    <script src="https://kit.fontawesome.com/8739a2e575.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -16,42 +17,65 @@
         <section class='software-tag'>
             <h2>{{tag}}</h2>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Rank</th>
-                        <th>Stars</th>
-                        <th>Website</th>
-                        <th>Description</th>
-                        <th>Source code<htd>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for software in softwares %}
-                    <tr>
-                        <td class="to-right">
-                            {{loop.index + 1}}
-                        </td>
-                        <td class="to-right">
-                            {{software.stargazers_count or '??'}}
-                        </td>
-                        <td class="to-center">
-                            <a href="{{software.website_url}}">
-                                {{software.name}}
-                            </a>
-                        </td>
-                        <td>{{software.description}}</td>
-                        <td class="to-center">
-                            {% if software.source_code_url %}
-                            <a href="{{software.source_code_url}}">
-                                Source code
-                            </a>
-                            {% endif %}
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+            <ol>
+                {% for software in softwares %}
+                <li>
+                    <div class="tag stars yellow">
+                        <i class="fa-solid fa-star"></i>
+                        {{software.stargazers_count or '??'}}
+                    </div>
+                    {% if software.archived %}
+                    <div class="tag orange">
+                        <i class="fa-solid fa-box-archive"></i>
+                        Archived
+                    </div>
+                    {% endif %}
+
+                    <h3 class="title">{{software.name}}</h3>
+
+                    <div class="tags">
+                        <div class="description">{{software.description}}</div>
+                        {% if software.source_code_url %}
+                        <a class="tag dark-blue" href="{{software.source_code_url}}">
+                            <i class="fa-solid fa-code-branch"></i>
+                            Source code
+                        </a>
+                        {% endif %}
+                        {% if software.website_url %}
+                        <a class="tag dark-blue" href="{{software.website_url}}">
+                            <i class="fa-solid fa-globe"></i>
+                            Website
+                        </a>
+                        {% endif %}
+
+                        {% if software.updated_at %}
+                        <div class="tag grey">
+                            <i class="fa-solid fa-calendar"></i>
+                            {{software.updated_at}}
+                        </div>
+                        {% endif %}
+
+                        {% if software.licenses %}
+                        {% for platform in software.platforms %}
+                        <div class="tag green">
+                            <i class="fa-solid fa-cube"></i>
+                            {{platform}}
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+
+                        {% if software.licenses %}
+                        {% for license in software.licenses %}
+                        <div class="tag light-blue">
+                            <i class="fa-solid fa-scale-balanced"></i>
+                            {{license}}
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                </li>
+                {% endfor %}
+            </ol>
         </section>
         {% endfor %}
     </main>
