@@ -12,10 +12,22 @@
 </head>
 
 <body>
+    <header>
+        <h2>Table of contents</h2>
+        <ul>
+            {% for tag, softwares in softwares %}
+            <li>
+                <a href="#{{ tag | lower }}">{{tag}}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </header>
     <main>
         {% for tag, softwares in softwares %}
         <section class='software-tag'>
-            <h2>{{tag}}</h2>
+            <a id="{{ tag | lower }}" href="#{{ tag | lower }}" class="tag-title">
+                <h2>{{tag}}</h2>
+            </a>
 
             <ol>
                 {% for software in softwares %}

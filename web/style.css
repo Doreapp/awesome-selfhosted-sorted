@@ -22,6 +22,11 @@ body {
     font-size: 18px;
 }
 
+a.tag-title {
+    text-decoration: none;
+    color: black;
+}
+
 .tag.yellow {
     background: #ffdf40;
     color: #403000;
