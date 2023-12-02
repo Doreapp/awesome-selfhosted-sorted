@@ -1,5 +1,5 @@
 """
-Script to parse raw awesome-selfhoster data
+Script to parse raw awesome-selfhosted data
 and generate files
 """
 
@@ -19,16 +19,16 @@ def main():
     softwares = parse_yaml_files(
         list_dir(os.path.join("awesome-selfhosted-data", "software"))
     )
-    tagToSoftware = sortTagToSoftware(softwares)
-    generate(softwares=sorted(list(tagToSoftware.items())))
+    tag_to_software = sort_tag_to_software(softwares)
+    generate(softwares=sorted(list(tag_to_software.items())))
 
 
 def fetch_data():
     """Fetch the data from awesome-selfhosted-data"""
     shutil.rmtree("awesome-selfhosted-data", ignore_errors=True)
-    subprocess.run((
-        "git", "clone", "--depth=1", "https://github.com/awesome-selfhosted/awesome-selfhosted-data"
-    ))
+    subprocess.run(
+        ("git", "clone", "--depth=1", "https://github.com/awesome-selfhosted/awesome-selfhosted-data")
+    )
 
 
 def list_dir(directory_path: str) -> List[str]:
@@ -62,21 +62,23 @@ def generate(**data):
         fos.write(result)
 
 
-def sortTagToSoftware(softwares: List[dict]):
+def sort_tag_to_software(softwares: List[dict]) -> dict:
     """Sort the softwares by tag"""
-    tagToSoftware = {}
+    tag_to_software = {}
     for software in softwares:
         for tag in software["tags"]:
-            prev = tagToSoftware.get(tag)
+            prev = tag_to_software.get(tag)
             if prev is None:
-                tagToSoftware[tag] = [software]
+                tag_to_software[tag] = [software]
             else:
                 prev.append(software)
-    sortedResult = {}
-    for tag in sorted(tagToSoftware.keys()):
-        software_list = tagToSoftware[tag]
-        sortedResult[tag] = sorted(software_list, key=lambda software: -software.get('stargazers_count', -1))
-    return sortedResult
+    sorted_result = {}
+    for tag in sorted(tag_to_software.keys()):
+        software_list = tag_to_software[tag]
+        sorted_result[tag] = sorted(
+            software_list, key=lambda software: -software.get('stargazers_count', -1)
+        )
+    return sorted_result
 
 
 if __name__ == "__main__":
