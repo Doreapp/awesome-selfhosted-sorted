@@ -62,3 +62,7 @@ a.tag-title {
 .tags {
     margin-bottom: 12px;
 }
+
+.centered {
+    text-align: center;
+}

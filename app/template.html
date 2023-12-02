@@ -13,6 +13,29 @@
 
 <body>
     <header>
+        <div class="centered">
+            <h1 id="title">Awesome selfhosted sorted by stars</h1>
+            <p>
+                Last updated: {{ now.strftime('%d-%m-%Y') }}
+            </p>
+            <p>
+                <a href="https://github.com/Doreapp/awesome-selfhosted-sorted">
+                    <i class="fa-brands fa-github"></i>
+                    View on GitHub
+                </a>
+            </p>
+            <p>
+                <a href="https://github.com/awesome-selfhosted">
+                    <i class="fa-brands fa-github"></i>
+                    Original repository
+                </a>
+                &nbsp;
+                <a href="https://github.com/awesome-selfhosted/awesome-selfhosted-data">
+                    <i class="fa-brands fa-github"></i>
+                    Repository holding the data
+                </a>
+            </p>
+        </div>
         <h2>Table of contents</h2>
         <ul>
             {% for tag, softwares in softwares %}

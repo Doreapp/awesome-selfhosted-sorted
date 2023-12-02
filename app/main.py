@@ -3,6 +3,7 @@ Script to parse raw awesome-selfhoster data
 and generate files
 """
 
+from datetime import datetime
 import os
 import shutil
 import subprocess
@@ -54,7 +55,7 @@ def generate(**data):
         autoescape=jinja2.select_autoescape()
     )
     template = env.get_template("template.html")
-    result = template.render(**data)
+    result = template.render(now=datetime.now(), **data)
     with open(
         os.path.join(BASE_DIR, "..", "web", "index.html"), "w", encoding="utf-8"
     ) as fos:
