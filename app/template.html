@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Awesome selfhosted sorted by stars</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+    <script src="https://kit.fontawesome.com/8739a2e575.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header>
+        <div class="centered">
+            <h1 id="title">Awesome selfhosted sorted by stars</h1>
+            <p>
+                Last updated: {{ now.strftime('%d-%m-%Y') }}
+            </p>
+            <p>
+                <a href="https://github.com/Doreapp/awesome-selfhosted-sorted">
+                    <i class="fa-brands fa-github"></i>
+                    View on GitHub
+                </a>
+            </p>
+            <p>
+                <a href="https://github.com/awesome-selfhosted">
+                    <i class="fa-brands fa-github"></i>
+                    Original repository
+                </a>
+                &nbsp;
+                <a href="https://github.com/awesome-selfhosted/awesome-selfhosted-data">
+                    <i class="fa-brands fa-github"></i>
+                    Repository holding the data
+                </a>
+            </p>
+        </div>
+        <h2>Table of contents</h2>
+        <ul>
+            {% for tag, softwares in softwares %}
+            <li>
+                <a href="#{{ tag | lower }}">{{tag}}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </header>
+    <main>
+        {% for tag, softwares in softwares %}
+        <section class='software-tag'>
+            <a id="{{ tag | lower }}" href="#{{ tag | lower }}" class="tag-title">
+                <h2>{{tag}}</h2>
+            </a>
+
+            <ol>
+                {% for software in softwares %}
+                <li>
+                    <div class="tag stars yellow">
+                        <i class="fa-solid fa-star"></i>
+                        {{software.stargazers_count or '??'}}
+                    </div>
+                    {% if software.archived %}
+                    <div class="tag orange">
+                        <i class="fa-solid fa-box-archive"></i>
+                        Archived
+                    </div>
+                    {% endif %}
+
+                    <h3 class="title">{{software.name}}</h3>
+
+                    <div class="tags">
+                        <div class="description">{{software.description}}</div>
+                        {% if software.source_code_url %}
+                        <a class="tag dark-blue" href="{{software.source_code_url}}">
+                            <i class="fa-solid fa-code-branch"></i>
+                            Source code
+                        </a>
+                        {% endif %}
+                        {% if software.website_url %}
+                        <a class="tag dark-blue" href="{{software.website_url}}">
+                            <i class="fa-solid fa-globe"></i>
+                            Website
+                        </a>
+                        {% endif %}
+
+                        {% if software.updated_at %}
+                        <div class="tag grey">
+                            <i class="fa-solid fa-calendar"></i>
+                            {{software.updated_at}}
+                        </div>
+                        {% endif %}
+
+                        {% if software.licenses %}
+                        {% for platform in software.platforms %}
+                        <div class="tag green">
+                            <i class="fa-solid fa-cube"></i>
+                            {{platform}}
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+
+                        {% if software.licenses %}
+                        {% for license in software.licenses %}
+                        <div class="tag light-blue">
+                            <i class="fa-solid fa-scale-balanced"></i>
+                            {{license}}
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                </li>
+                {% endfor %}
+            </ol>
+        </section>
+        {% endfor %}
+        <div id="to-top-button-container">
+            <button onclick="scrollToTop()" id="to-top-button" title="Go back to top">Go back to top</button>
+        </div>
+    </main>
+    <script src="main.js"></script>
+</body>
+
+</html>
