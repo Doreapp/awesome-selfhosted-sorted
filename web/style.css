@@ -67,23 +67,27 @@ a.tag-title {
     text-align: center;
 }
 
+#to-top-button-container {
+    position: fixed;
+    top: 10px;
+    width: 100%;
+    display: flex;
+    place-content: center;
+}
+
 #to-top-button {
     display: none;
-    position: fixed;
-    top: 20px;
     text-align: center;
     z-index: 99;
-    width: 30%;
-    left: 35%;
     border: none;
     outline: none;
     background-color: #303030;
     opacity: 0.9;
     color: white;
     cursor: pointer;
-    padding: 15px;
+    padding: 10px 8px;
     border-radius: 10px;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 #to-top-button:hover {
